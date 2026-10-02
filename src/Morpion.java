@@ -88,6 +88,7 @@ public class Morpion {
  
         System.out.println("Bienvenu au morpion.");
         symbol = choisirSymbole(in);
+        System.out.println("(Tapez Q pendant votre tour pour abandonner)");
 
         affichEchiquier();
         System.out.println("Joueur " + symbol + " commence."
@@ -96,6 +97,12 @@ public class Morpion {
         while (winner == null) {
 
             String saisie = in.nextLine().trim();
+            
+            if (saisie.equalsIgnoreCase("Q")) {
+                System.out.println("Le joueur " + symbol + " abandonne la partie.");
+                winner = symbol.equals("X") ? "O" : "X";
+                break;
+            }
 
             try {
                 int chiffre = Integer.parseInt(saisie);

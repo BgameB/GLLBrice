@@ -66,14 +66,25 @@ public class Morpion {
         System.out.println("|---|---|---|");
     }
 
-    static String choisirSymbole(Scanner in) {
+    static String choisirPremierJoueur(Scanner in) {
         while (true) {
-            System.out.print("Choisissez votre symbole (X ou O) : ");
-            String choix = in.nextLine().trim().toUpperCase();
-            if (choix.equals("X") || choix.equals("O")) {
-                return choix;
+            System.out.print("Choisir le premier joueur (C) ou tirer au sort (R) ? ");
+            String mode = in.nextLine().trim().toUpperCase();
+
+            if (mode.equals("R"))
+                return new Random().nextBoolean() ? "X" : "O";
+
+            if (mode.equals("C")) {
+                while (true) {
+                    System.out.print("Quel joueur commence (X ou O) ? ");
+                    String choix = in.nextLine().trim().toUpperCase();
+                    if (choix.equals("X") || choix.equals("O"))
+                        return choix;
+                    System.out.println("Choix invalide. Veuillez saisir X ou O.");
+                }
             }
-            System.out.println("Choix invalide. Veuillez saisir X ou O.");
+
+            System.out.println("Choix invalide. Veuillez saisir C ou R.");
         }
     }
  
@@ -86,8 +97,10 @@ public class Morpion {
 
         for (int i = 0; i < 9; i++)
             echiquier[i] = String.valueOf(i + 1);
-
-        symbol = choisirSymbole(in);
+ 
+        System.out.println("Bienvenu au morpion.");
+        symbol = choisirPremierJoueur(in);
+        System.out.println("Le joueur " + symbol + " commence.");
         System.out.println("(Tapez Q pendant votre tour pour abandonner)");
 
         affichEchiquier();
